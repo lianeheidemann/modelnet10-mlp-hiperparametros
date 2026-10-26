@@ -66,7 +66,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 **Um exemplo de cada classe**
 
-<img src="output/02_exemplo_por_classe.png" alt="Exemplo de cada classe" width="90%">
+<img src="output/02_exemplo_por_classe.png" alt="Exemplo de cada classe" width="100%">
 
 ### Etapa 3: grade de ocupação 8×8×8
 
@@ -78,7 +78,7 @@ Cada nuvem de 2.048 pontos vira um vetor binário de **512 atributos** (função
 
 A transformação é determinística e usa só os pontos de cada objeto, então vale igualmente para treino e teste, sem ajuste com o teste. Resultado: `X_train` com 3.991 × 512 e `X_test` com 908 × 512, sem objetos vazios e com cerca de 25% das células ocupadas.
 
-<img src="output/03_grade_ocupacao.png" alt="Grade de ocupação 8x8x8" width="90%">
+<img src="output/03_grade_ocupacao.png" alt="Grade de ocupação 8x8x8" width="100%">
 
 Limitação: a normalização por objeto descarta o tamanho absoluto, e a grade grossa pode misturar detalhes finos.
 
