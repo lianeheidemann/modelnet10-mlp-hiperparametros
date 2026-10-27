@@ -1,4 +1,4 @@
-# modelnet10-mlp-hiperparametros
+# MLP com ModelNet10: otimização de hiperparâmetros
 
 <img src="https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="20"> <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="20"> <img src="https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn" height="20"> <img src="https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white" alt="Optuna" height="20"> <img src="https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="20"><br><img src="https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" height="20"> <img src="https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="20"> <img src="https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy" height="20"> <img src="https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white" alt="HDF5" height="20">
 
@@ -36,15 +36,15 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 | Etapa | Descrição | Status |
 | --- | --- | --- |
-| 1 | Validar o dataset (revisão externa) | Feita (dataset aprovado) |
-| 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | Feita |
-| 2 | Carregar e conferir os dados | Feita |
-| 3 | Preparar a entrada da MLP (grade 8×8×8) | Feita |
-| 4 | Validação cruzada de 3 folds e baseline | Feita |
-| 5 | Random Search (25) e TPE com Optuna (25) | Feita |
-| 6 | Análises de sensibilidade (`alpha`) | Feita |
-| 7 | Modelo final e avaliação no teste | Feita |
-| 8 | Interpretação e resumo | Feita |
+| 1 | Validar o dataset (revisão externa) | ✅ Feita (dataset aprovado) |
+| 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | ✅ Feita |
+| 2 | Carregar e conferir os dados | ✅ Feita |
+| 3 | Preparar a entrada da MLP (grade 8×8×8) | ✅ Feita |
+| 4 | Validação cruzada de 3 folds e baseline | ✅ Feita |
+| 5 | Random Search (25) e TPE com Optuna (25) | ✅ Feita |
+| 6 | Análises de sensibilidade (`alpha`) | ✅ Feita |
+| 7 | Modelo final e avaliação no teste | ✅ Feita |
+| 8 | Interpretação e resumo | ✅ Feita |
 
 ### Etapa 2: carregar e conferir os dados
 
@@ -57,21 +57,21 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 **Objetos por classe**
 
-<img src="output/01_objetos_por_classe.png" alt="Objetos por classe" width="90%">
+<img src="output/02_objetos_por_classe.png" alt="Objetos por classe" width="90%">
 
 *Figura 1: número de objetos por classe nos conjuntos de treino e teste.*
 
 **O mesmo objeto em três vistas (frontal, lateral e topo)**
 
-<img src="output/02_1_vista_frontal.png" alt="Vista frontal" width="100%">
+<img src="output/02_vista_frontal.png" alt="Vista frontal" width="100%">
 
 *Figura 2: vista frontal (olhando ao longo do eixo Y) dos mesmos objetos.*
 
-<img src="output/02_2_vista_lateral.png" alt="Vista lateral" width="100%">
+<img src="output/02_vista_lateral.png" alt="Vista lateral" width="100%">
 
 *Figura 3: vista lateral (olhando ao longo do eixo X) dos mesmos objetos.*
 
-<img src="output/02_3_vista_topo.png" alt="Vista de topo" width="100%">
+<img src="output/02_vista_topo.png" alt="Vista de topo" width="100%">
 
 *Figura 4: vista de topo (olhando ao longo do eixo Z) dos mesmos objetos.*
 
@@ -146,7 +146,7 @@ A melhor configuração geral, usada nas próximas etapas, é a do Random Search
 - Os tempos de busca não permitem concluir qual método é mais rápido: variaram muito entre execuções (Random Search de 333 a 579 s e TPE de 230 a 656 s) e dependem das configurações sorteadas, já que taxas de aprendizado baixas treinam mais devagar.
 - Importância estimada pelo TPE: taxa de aprendizado (0,34), tamanho do lote (0,33) e camadas (0,26) pesam mais, `alpha` (0,06) e ativação (0,01) quase não importam. Com 25 trials, isso é só indicativo.
 
-<img src="output/04_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
+<img src="output/05_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
 
 *Figura 6: evolução das buscas. Cada ponto é o F1 macro médio (3 folds) de um trial, em laranja no Random Search e em azul no TPE; as linhas em degrau mostram o melhor valor acumulado e a linha tracejada é o baseline.*
 

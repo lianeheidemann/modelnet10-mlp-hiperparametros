@@ -13,7 +13,7 @@ plt.savefig(OUTPUT_DIR / '04_nome_do_grafico.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 
-- Nome do arquivo: prefixo numérico em ordem de aparição no notebook, minúsculas, sem acentos, separado por `_`, extensão `.png`.
+- Nome do arquivo: prefixo numérico com o número da etapa do notebook em que a imagem é gerada (ex.: `05_...` na Etapa 5), minúsculas, sem acentos, separado por `_`, extensão `.png`.
 - Nunca salvar imagens fora de `output/`. Tabelas de resultados (CSV) também vão para `output/`.
 - Toda imagem de `output/` deve aparecer no `README.md`, na seção da etapa correspondente, com `<img src="output/..." alt="..." width="...">`. Exceção pedida pelo usuário: `02_exemplo_por_classe.png` continua sendo gerada pelo notebook, mas não aparece no README.
 - **Toda imagem do `README.md` deve ter legenda**: uma linha em itálico logo abaixo, no formato `*Figura N: o que a imagem mostra.*`, com numeração sequencial. Quando o gráfico tiver elementos que exigem explicação (pontos, linhas, cores), descrevê-los na legenda.

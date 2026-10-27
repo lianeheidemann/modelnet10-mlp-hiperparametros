@@ -27,3 +27,6 @@ Thumbs.db
 .claude/settings.local.json
 
 # Observação: a pasta output/ NÃO é ignorada, pois as imagens dela aparecem no README.md
+
+# Arquivos de outros projetos, guardados localmente e fora do repositório
+extras/
