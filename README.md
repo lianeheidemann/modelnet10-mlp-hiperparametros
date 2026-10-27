@@ -36,15 +36,15 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 | Etapa | Descrição | Status |
 | --- | --- | --- |
-| 1 | Validar o dataset (revisão externa) | ✅ Feita |
 | 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | ✅ Feita |
+| 1 | Validar o dataset (revisão externa) | ✅ Feita |
 | 2 | Carregar e conferir os dados | ✅ Feita |
 | 3 | Preparar a entrada da MLP (grade 8×8×8) | ✅ Feita |
 | 4 | Validação cruzada de 3 folds e baseline | ✅ Feita |
 | 5 | Random Search (25) e TPE com Optuna (25) | ✅ Feita |
 | 6 | Análises de sensibilidade (`alpha`) | ✅ Feita |
 | 7 | Modelo final e avaliação no teste | ✅ Feita |
-| 8 | Interpretação e resumo | ✅ Feita |
+| 8 | Interpretação e conclusões | ✅ Feita |
 
 ### Etapa 2: carregar e conferir os dados
 
@@ -129,8 +129,8 @@ A função `evaluate_config` é a mesma nas duas buscas. O Random Search sorteia
 | Método | F1 macro | Accuracy | F1 macro no treino | Tempo da busca |
 | --- | --- | --- | --- | --- |
 | Baseline | 0,870 | 0,916 | 0,963 | n/a |
-| Random Search | **0,887** | 0,923 | 0,967 | 373 s |
-| TPE | 0,882 | 0,922 | 0,974 | 230 s |
+| Random Search | **0,887** | 0,923 | 0,967 | 265 s |
+| TPE | 0,882 | 0,922 | 0,974 | 243 s |
 
 **Melhores configurações**
 
@@ -143,8 +143,8 @@ A melhor configuração geral, usada nas próximas etapas, é a do Random Search
 
 - As duas buscas superam o baseline (16 de 25 trials de cada uma ficam acima de 0,870), mas o ganho é pequeno, cerca de 0,01 a 0,02 de F1 macro.
 - A diferença entre Random Search e TPE (0,006) é próxima do desvio entre folds do baseline (0,008), então com 25 trials não dá para afirmar que um método é melhor. O TPE melhorou depressa, no trial 2, mas não passou de 0,882.
-- Os tempos de busca não permitem concluir qual método é mais rápido: variaram muito entre execuções (Random Search de 333 a 579 s e TPE de 230 a 656 s) e dependem das configurações sorteadas, já que taxas de aprendizado baixas treinam mais devagar.
-- Importância estimada pelo TPE: taxa de aprendizado (0,34), tamanho do lote (0,33) e camadas (0,26) pesam mais, `alpha` (0,06) e ativação (0,01) quase não importam. Com 25 trials, isso é só indicativo.
+- Os tempos de busca não permitem concluir qual método é mais rápido: variaram muito entre execuções (Random Search de 265 a 579 s e TPE de 230 a 656 s) e dependem das configurações sorteadas, já que taxas de aprendizado baixas treinam mais devagar.
+- Importância estimada pelo TPE: taxa de aprendizado (0,34), tamanho do lote (0,34) e camadas (0,26) pesam mais, `alpha` (0,06) e ativação (0,01) quase não importam. Com 25 trials, isso é só indicativo.
 
 <img src="output/05_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
 

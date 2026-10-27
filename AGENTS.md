@@ -9,7 +9,7 @@ Regras deste repositório para qualquer agente de IA que edite o notebook `noteb
 
 ```python
 plt.tight_layout()
-plt.savefig(OUTPUT_DIR / '04_nome_do_grafico.png', dpi=150, bbox_inches='tight')
+plt.savefig(OUTPUT_DIR / '05_nome_do_grafico.png', dpi=150, bbox_inches='tight')
 plt.show()
 ```
 

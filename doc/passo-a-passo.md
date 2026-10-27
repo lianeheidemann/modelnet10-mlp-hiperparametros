@@ -1,6 +1,6 @@
 # Guia de implementação passo a passo
 
-Este roteiro mantém o ModelNet10 do repositório e cobre os requisitos experimentais definidos para a análise. **O dataset deve ser aprovado antes de começar o pré-processamento (aprovado).**
+Este roteiro mantém o ModelNet10 do repositório e cobre os requisitos experimentais definidos para a análise. **O dataset foi aprovado antes de começar o pré-processamento.**
 
 ## 1. Validar o dataset ✅
 
@@ -49,9 +49,9 @@ Cada análise varia um hiperparâmetro diferente. Variar pelo menos cinco valore
 
 Escolher a melhor configuração entre as buscas, treinar com todo o conjunto de treino e avaliar **uma única vez** no teste reservado. Apresentar F1 macro, accuracy, relatório por classe e matriz de confusão.
 
-## 8. Interpretar e resumir ✅
+## 8. Interpretar e concluir ✅
 
-Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook autoria, decisões e a nota sobre uso de IA, se aplicável. Preparar um resumo de até 12 minutos, centrado no problema e nos resultados.
+Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook autoria, decisões e a nota sobre uso de IA, se aplicável.
 
 ## Checklist de controle
 

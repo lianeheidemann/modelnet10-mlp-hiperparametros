@@ -2,8 +2,7 @@
 
 ## Objetivo
 
-Classificar objetos 3D com uma MLP e avaliar 
- efeito do ajuste de hiperparâmetros.
+Classificar objetos 3D com uma MLP e avaliar o efeito do ajuste de hiperparâmetros.
 
 ## Dataset e validação
 
@@ -40,4 +39,3 @@ A métrica principal será **F1 macro**; accuracy será complementar. Registrar 
 ## Entregas
 
 - Notebook com decisões e análises em Markdown, resultados e nota sobre uso de IA, se aplicável.
-- Resumo de até 12 minutos, centrado no problema, nas decisões e nos resultados — não no código.
