@@ -2,7 +2,8 @@
 
 ## Objetivo
 
-Classificar objetos 3D com uma MLP e avaliar o efeito do ajuste de hiperparâmetros.
+Classificar objetos 3D com uma MLP e avaliar 
+ efeito do ajuste de hiperparâmetros.
 
 ## Dataset e validação
 

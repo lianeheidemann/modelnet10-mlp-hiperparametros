@@ -1,14 +1,14 @@
 # 3d-mnist-mlp-optimization-v2
 
-![Python](https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
-![Optuna](https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white)
-![NumPy](https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white)
-![pandas](https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white)
-![SciPy](https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)
-![HDF5](https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white)
+<img src="https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="20">
+<img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="20">
+<img src="https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn" height="20">
+<img src="https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white" alt="Optuna" height="20">
+<img src="https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="20">
+<img src="https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" height="20">
+<img src="https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="20">
+<img src="https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy" height="20">
+<img src="https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white" alt="HDF5" height="20">
 
 Classificação de objetos 3D do **ModelNet10** com uma MLP (`scikit-learn`) e avaliação do efeito do ajuste de hiperparâmetros (Random Search e TPE/Optuna).
 
@@ -45,7 +45,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 | 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | Feita |
 | 2 | Carregar e conferir os dados | Feita |
 | 3 | Preparar a entrada da MLP (grade 8×8×8) | Feita |
-| 4 | Validação cruzada de 3 folds e baseline | A fazer |
+| 4 | Validação cruzada de 3 folds e baseline | Feita |
 | 5 | Random Search (25) e TPE com Optuna (25) | A fazer |
 | 6 | Análises de sensibilidade | A fazer |
 | 7 | Modelo final e avaliação no teste | A fazer |
@@ -68,6 +68,14 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 <img src="output/02_exemplo_por_classe.png" alt="Exemplo de cada classe" width="100%">
 
+**O mesmo objeto em três vistas (frontal, lateral e topo)**
+
+<img src="output/02_1_vista_frontal.png" alt="Vista frontal" width="100%">
+
+<img src="output/02_2_vista_lateral.png" alt="Vista lateral" width="100%">
+
+<img src="output/02_3_vista_topo.png" alt="Vista de topo" width="100%">
+
 ### Etapa 3: grade de ocupação 8×8×8
 
 Cada nuvem de 2.048 pontos vira um vetor binário de **512 atributos** (função `voxelize`):
@@ -81,6 +89,25 @@ A transformação é determinística e usa só os pontos de cada objeto, então 
 <img src="output/03_grade_ocupacao.png" alt="Grade de ocupação 8x8x8" width="100%">
 
 Limitação: a normalização por objeto descarta o tamanho absoluto, e a grade grossa pode misturar detalhes finos.
+
+### Etapa 4: validação cruzada e baseline
+
+- **Folds:** `StratifiedKFold` com 3 folds, `shuffle=True` e seed 42, aplicado só ao treino. Os folds são criados uma vez (`FOLDS`) e reutilizados em todos os experimentos. A proporção de cada classe é praticamente igual entre os folds.
+- **Pipeline:** `StandardScaler` + `MLPClassifier`, com a padronização ajustada dentro de cada fold.
+- **Parâmetros fixos** (`FIXED_PARAMS`, reaproveitados nas buscas): Adam, `max_iter=200` e parada antecipada (`early_stopping=True`, `n_iter_no_change=10`).
+- **Métricas:** F1 macro (principal), accuracy, tempo de treino e F1 macro no treino do fold, para diagnosticar overfitting.
+- **Baseline:** MLP com os valores padrão do scikit-learn (uma camada de 100 neurônios, ReLU, `alpha=1e-4`, taxa `1e-3`), sem busca.
+
+Resultado do baseline (média ± desvio entre os 3 folds):
+
+| Métrica | Valor |
+| --- | --- |
+| F1 macro (validação) | 0,870 ± 0,008 |
+| Accuracy (validação) | 0,916 ± 0,006 |
+| F1 macro (treino do fold) | 0,963 ± 0,018 |
+| Tempo por fold | 1,5 s |
+
+O F1 macro é menor que a accuracy, o que indica que as classes pequenas têm desempenho pior. A diferença de cerca de 0,09 entre treino e validação sugere algum overfitting, a ser comparado com os modelos ajustados. O resumo fica em `output/baseline_cv.csv`.
 
 ## Aprovação do dataset
 

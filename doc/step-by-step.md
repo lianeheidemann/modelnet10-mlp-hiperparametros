@@ -6,7 +6,7 @@ Este roteiro mantém o ModelNet10 do repositório e cobre os requisitos experime
 
 Apresentar nome e link do ModelNet10, objetivo de classificação, número de instâncias, representação dos dados, classes e distribuição. Aguardar a validação da professora, pois a lauda restringe datasets excessivamente documentados.
 
-## 2. Carregar e conferir os dados
+## 2. Carregar e conferir os dados ✅
 
 Usar os arquivos em `dataset/modelnet10_hdf5/`:
 
@@ -16,11 +16,11 @@ Usar os arquivos em `dataset/modelnet10_hdf5/`:
 
 Conferir dimensões, rótulos, distribuição por classe, valores ausentes e coordenadas inválidas. Manter o arquivo de teste reservado: ele não participa das buscas nem da validação cruzada.
 
-## 3. Preparar a entrada da MLP
+## 3. Preparar a entrada da MLP ✅
 
 Converter cada nuvem em uma grade binária de ocupação **8 × 8 × 8** (512 atributos). Verificar a faixa e a normalização das coordenadas; definir uma transformação determinística e aplicá-la igualmente aos dados de treino e teste. Não ajustar a transformação usando o conjunto de teste.
 
-## 4. Definir a avaliação e o baseline
+## 4. Definir a avaliação e o baseline ✅
 
 Usar uma validação cruzada estratificada de **3 folds** no conjunto de treino e **F1 macro** como métrica principal. Registrar também accuracy e tempo de execução.
 

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Otimização (banco de estudos do Optuna)
+*.db
+*.sqlite3
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Configuração local do Claude Code
+.claude/settings.local.json
+
+# Observação: a pasta output/ NÃO é ignorada, pois as imagens dela aparecem no README.md
