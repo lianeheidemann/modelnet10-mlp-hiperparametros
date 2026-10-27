@@ -41,8 +41,8 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 | 4 | Validação cruzada de 3 folds e baseline | Feita |
 | 5 | Random Search (25) e TPE com Optuna (25) | Feita |
 | 6 | Análises de sensibilidade (`alpha`) | Feita |
-| 7 | Modelo final e avaliação no teste | A fazer |
-| 8 | Interpretação e apresentação | A fazer |
+| 7 | Modelo final e avaliação no teste | Feita |
+| 8 | Interpretação e apresentação | Feita |
 
 ### Etapa 2: carregar e conferir os dados
 
@@ -127,8 +127,8 @@ A função `evaluate_config` é a mesma nas duas buscas. O Random Search sorteia
 | Método | F1 macro | Accuracy | F1 macro no treino | Tempo da busca |
 | --- | --- | --- | --- | --- |
 | Baseline | 0,870 | 0,916 | 0,963 | n/a |
-| Random Search | **0,887** | 0,923 | 0,967 | 579 s |
-| TPE | 0,882 | 0,922 | 0,974 | 391 s |
+| Random Search | **0,887** | 0,923 | 0,967 | 373 s |
+| TPE | 0,882 | 0,922 | 0,974 | 230 s |
 
 **Melhores configurações**
 
@@ -141,7 +141,7 @@ A melhor configuração geral, usada nas próximas etapas, é a do Random Search
 
 - As duas buscas superam o baseline (16 de 25 trials de cada uma ficam acima de 0,870), mas o ganho é pequeno, cerca de 0,01 a 0,02 de F1 macro.
 - A diferença entre Random Search e TPE (0,006) é próxima do desvio entre folds do baseline (0,008), então com 25 trials não dá para afirmar que um método é melhor. O TPE melhorou depressa, no trial 2, mas não passou de 0,882.
-- Os tempos de busca não permitem concluir qual método é mais rápido: eles variam bastante entre execuções (em outra execução o Random Search levou 333 s e o TPE 656 s) e dependem das configurações sorteadas (taxas de aprendizado baixas treinam mais devagar). Na última execução, o notebook rodou ao mesmo tempo que outro processo, o que também distorce a medida.
+- Os tempos de busca não permitem concluir qual método é mais rápido: variaram muito entre execuções (Random Search de 333 a 579 s e TPE de 230 a 656 s) e dependem das configurações sorteadas, já que taxas de aprendizado baixas treinam mais devagar.
 - Importância estimada pelo TPE: taxa de aprendizado (0,34), tamanho do lote (0,33) e camadas (0,26) pesam mais, `alpha` (0,06) e ativação (0,01) quase não importam. Com 25 trials, isso é só indicativo.
 
 <img src="output/04_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
@@ -177,3 +177,48 @@ Variação de **um** hiperparâmetro, o `alpha` (regularização L2), com 7 valo
 *Figura 8: F1 macro e accuracy de validação (linhas azul e verde) e F1 macro no treino (tracejada cinza) para cada valor de `alpha`, em escala logarítmica; a linha vertical vermelha pontilhada marca o `alpha` da melhor configuração das buscas.*
 
 Tabela completa em `output/sensibilidade_alpha.csv`.
+
+### Etapa 7: modelo final e avaliação no teste
+
+A melhor configuração das buscas (`BEST_CFG`: `(128,)`, ReLU, `alpha` 4,8e-5, taxa 1,3e-3, lote 128) foi treinada com **todo** o treino e avaliada **uma única vez** no teste reservado, que não participou de nenhuma decisão anterior.
+
+| Avaliação | F1 macro | Accuracy |
+| --- | --- | --- |
+| Validação cruzada (3 folds) | 0,887 | 0,923 |
+| **Teste (908 objetos)** | **0,853** | **0,857** |
+
+**Relatório por classe (teste)**
+
+| Classe | Precisão | Recall | F1 | Objetos |
+| --- | --- | --- | --- | --- |
+| Banheira | 1,000 | 0,840 | 0,913 | 50 |
+| Cama | 0,884 | 0,990 | 0,934 | 100 |
+| Cadeira | 0,970 | 0,970 | 0,970 | 100 |
+| Mesa de escritório | 0,638 | 0,698 | 0,667 | 86 |
+| Cômoda | 0,756 | 0,756 | 0,756 | 86 |
+| Monitor | 0,990 | 0,960 | 0,975 | 100 |
+| Mesa de cabeceira | 0,693 | 0,709 | 0,701 | 86 |
+| Sofá | 0,923 | 0,960 | 0,941 | 100 |
+| Mesa | 0,761 | 0,670 | 0,713 | 100 |
+| Vaso sanitário | 0,979 | 0,950 | 0,964 | 100 |
+
+- O desempenho no teste é menor que na validação cruzada (queda de cerca de 0,03 no F1 macro e de 0,07 na accuracy), mais do que o desvio entre folds do baseline (0,008).
+- Cadeira, Monitor, Vaso sanitário, Sofá e Cama têm F1 acima de 0,93. As piores são Mesa de escritório, Mesa de cabeceira, Mesa e Cômoda.
+- Os erros se concentram em móveis de formato parecido: 32 mesas previstas como mesa de escritório, e 18 cômodas previstas como mesa de cabeceira (e 18 no sentido inverso). A grade 8×8×8 provavelmente não separa bem esses formatos.
+- Hipóteses, não testadas: o teste é mais equilibrado que o treino e pesa mais nas classes difíceis; além disso, escolher a melhor entre 50 configurações na validação tende a ser otimista.
+
+<img src="output/07_matriz_confusao.png" alt="Matriz de confusão no teste" width="100%">
+
+*Figura 9: matriz de confusão no teste. As linhas são a classe real e as colunas a prevista; os números são contagens de objetos e a cor indica a proporção da classe real.*
+
+Tabelas completas: `output/resultado_final_teste.csv` e `output/relatorio_por_classe_teste.csv`.
+
+### Etapa 8: interpretação e conclusões
+
+- **Baseline versus ajustados:** o F1 macro de validação sobe de 0,870 para 0,887 (Random Search) e 0,882 (TPE). O ganho, de 0,01 a 0,02, é modesto e próximo do desvio entre folds (0,008).
+- **Random Search versus TPE:** a diferença (0,006) não é conclusiva com 25 trials, e os tempos de busca variam muito entre execuções.
+- **Sensibilidade:** o `alpha` quase não influencia o resultado; taxa de aprendizado, tamanho do lote e camadas pesam mais (importância indicativa).
+- **Overfitting:** o F1 macro no treino (0,96 a 0,97) fica cerca de 0,08 acima da validação, e o teste (0,853) fica abaixo da validação cruzada (0,887). Não há sinal de underfitting.
+- **Limitações:** grade 8×8×8 grossa, orçamento curto (25 trials, 3 folds, uma seed), sensibilidade só do `alpha` e seleção da melhor entre 50 configurações na validação.
+
+A síntese completa está no notebook (Etapa 8). O roteiro da apresentação de 12 minutos está em [doc/apresentacao.md](doc/apresentacao.md).

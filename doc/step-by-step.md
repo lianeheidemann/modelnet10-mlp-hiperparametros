@@ -45,20 +45,20 @@ Executar **25 configurações no Random Search** e **25 trials no Optuna/TPE**. 
 
 Cada integrante escolhe um hiperparâmetro diferente. Variar pelo menos cinco valores, mantendo os demais na melhor configuração encontrada. Avaliar cada valor nos mesmos folds, registrar F1 macro e accuracy, fazer um gráfico e explicar o efeito observado.
 
-## 7. Treinar e avaliar o modelo final
+## 7. Treinar e avaliar o modelo final ✅
 
 Escolher a melhor configuração entre as buscas, treinar com todo o conjunto de treino e avaliar **uma única vez** no teste reservado. Apresentar F1 macro, accuracy, relatório por classe e matriz de confusão.
 
-## 8. Interpretar e apresentar
+## 8. Interpretar e apresentar ✅
 
 Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook os nomes dos integrantes, as decisões e a declaração de uso de IA, se aplicável. Preparar apresentação de até 12 minutos, centrada no problema e nos resultados.
 
 ## Checklist de controle
 
 - [ ] Dataset validado pela professora antes do pré-processamento.
-- [ ] Teste mantido fora das buscas e da validação cruzada.
-- [ ] Baseline, Random Search e TPE avaliados nos mesmos folds.
-- [ ] 25 configurações em cada busca e mesmo espaço de busca.
-- [ ] Sensibilidade individual com pelo menos cinco valores.
-- [ ] Teste usado somente na avaliação final.
-- [ ] Resultados e limitações explicados no notebook.
+- [x] Teste mantido fora das buscas e da validação cruzada.
+- [x] Baseline, Random Search e TPE avaliados nos mesmos folds.
+- [x] 25 configurações em cada busca e mesmo espaço de busca.
+- [x] Sensibilidade individual com pelo menos cinco valores.
+- [x] Teste usado somente na avaliação final.
+- [x] Resultados e limitações explicados no notebook.

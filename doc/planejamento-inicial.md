@@ -1,4 +1,4 @@
-# Planejamento do trabalho — MLP com ModelNet10
+# Planejamento da análise — MLP com ModelNet10
 
 ## Objetivo
 
