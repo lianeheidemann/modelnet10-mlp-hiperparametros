@@ -1,6 +1,6 @@
 # 3d-mnist-mlp-optimization-v2
 
-<img src="https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="20"><img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="20"><img src="https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn" height="20"><img src="https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white" alt="Optuna" height="20"><img src="https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="20"><img src="https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" height="20"><img src="https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="20"><img src="https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy" height="20"><img src="https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white" alt="HDF5" height="20">
+<img src="https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="20"> <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="20"> <img src="https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn" height="20"> <img src="https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white" alt="Optuna" height="20"> <img src="https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="20"><br><img src="https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" height="20"> <img src="https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="20"> <img src="https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy" height="20"> <img src="https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white" alt="HDF5" height="20">
 
 Classificação de objetos 3D do **ModelNet10** com uma MLP (`scikit-learn`) e avaliação do efeito do ajuste de hiperparâmetros (Random Search e TPE/Optuna).
 
@@ -38,7 +38,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 | 2 | Carregar e conferir os dados | Feita |
 | 3 | Preparar a entrada da MLP (grade 8×8×8) | Feita |
 | 4 | Validação cruzada de 3 folds e baseline | Feita |
-| 5 | Random Search (25) e TPE com Optuna (25) | A fazer |
+| 5 | Random Search (25) e TPE com Optuna (25) | Feita |
 | 6 | Análises de sensibilidade | A fazer |
 | 7 | Modelo final e avaliação no teste | A fazer |
 | 8 | Interpretação e apresentação | A fazer |
@@ -100,6 +100,48 @@ Resultado do baseline (média ± desvio entre os 3 folds):
 | Tempo por fold | 1,5 s |
 
 O F1 macro é menor que a accuracy, o que indica que as classes pequenas têm desempenho pior. A diferença de cerca de 0,09 entre treino e validação sugere algum overfitting, a ser comparado com os modelos ajustados. O resumo fica em `output/baseline_cv.csv`.
+
+### Etapa 5: Random Search e TPE
+
+Duas buscas com o **mesmo espaço**, os **mesmos folds** (`FOLDS`), a mesma métrica (F1 macro médio nos 3 folds) e a mesma seed, cada uma com **25 configurações**. O teste não participa.
+
+| Hiperparâmetro | Espaço de busca |
+| --- | --- |
+| Camadas ocultas | `(64,)`, `(128,)` ou `(64, 64)` |
+| Ativação | ReLU ou tanh |
+| `alpha` | 1e-5 a 1e-2 (escala log) |
+| Taxa de aprendizado | 1e-4 a 1e-2 (escala log) |
+| Tamanho do lote | 32, 64 ou 128 |
+
+A função `evaluate_config` é a mesma nas duas buscas. O Random Search sorteia com `np.random.default_rng(42)` e o TPE usa `optuna.samplers.TPESampler(seed=42)`.
+
+**Resultados (validação cruzada, 3 folds)**
+
+| Método | F1 macro | Accuracy | F1 macro no treino | Tempo da busca |
+| --- | --- | --- | --- | --- |
+| Baseline | 0,870 | 0,916 | 0,963 | n/a |
+| Random Search | **0,887** | 0,923 | 0,967 | 333 s |
+| TPE | 0,882 | 0,922 | 0,974 | 656 s |
+
+**Melhores configurações**
+
+| Método | Camadas | Ativação | `alpha` | Taxa | Lote | Trial |
+| --- | --- | --- | --- | --- | --- | --- |
+| Random Search | `(128,)` | ReLU | 4,8e-5 | 1,3e-3 | 128 | 5 |
+| TPE | `(64,)` | ReLU | 1,5e-3 | 3,5e-3 | 64 | 8 |
+
+A melhor configuração geral, usada nas próximas etapas, é a do Random Search (`BEST_CFG`). Leituras iniciais:
+
+- As duas buscas superam o baseline (16 de 25 trials de cada uma ficam acima de 0,870), mas o ganho é pequeno, cerca de 0,01 a 0,02 de F1 macro.
+- A diferença entre Random Search e TPE (0,006) é próxima do desvio entre folds do baseline (0,008), então com 25 trials não dá para afirmar que um método é melhor. O TPE melhorou depressa, no trial 2, mas não passou de 0,882.
+- O TPE demorou mais porque testou várias configurações com taxa de aprendizado baixa (cerca de 4e-4), que treinam mais devagar. Os tempos variam um pouco entre execuções.
+- Importância estimada pelo TPE: taxa de aprendizado (0,34), tamanho do lote (0,33) e camadas (0,26) pesam mais, `alpha` (0,06) e ativação (0,01) quase não importam. Com 25 trials, isso é só indicativo.
+
+<img src="output/04_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
+
+<img src="output/05_importancia_hiperparametros.png" alt="Importância dos hiperparâmetros" width="100%">
+
+Tabelas completas dos trials: `output/random_search_trials.csv`, `output/tpe_trials.csv` e `output/comparacao_baseline_buscas.csv`.
 
 ## Aprovação do dataset
 
