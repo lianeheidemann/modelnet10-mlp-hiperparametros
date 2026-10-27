@@ -51,7 +51,7 @@ Escolher a melhor configuração entre as buscas, treinar com todo o conjunto de
 
 ## 8. Interpretar e concluir ✅
 
-Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook autoria, decisões e a nota sobre uso de IA, se aplicável.
+Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook autoria, decisões e a nota sobre uso de IA.
 
 ## Checklist de controle
 
