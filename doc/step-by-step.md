@@ -26,7 +26,7 @@ Usar uma validação cruzada estratificada de **3 folds** no conjunto de treino 
 
 Treinar uma MLP com configuração fixa, sem busca de hiperparâmetros, nos mesmos folds. Esse será o baseline para medir o efeito do ajuste.
 
-## 5. Executar Random Search e TPE
+## 5. Executar Random Search e TPE ✅
 
 Usar `MLPClassifier` dentro de um `Pipeline`, com padronização ajustada dentro de cada fold. Manter seed, folds, métrica e espaço de busca iguais nos dois métodos.
 
@@ -41,7 +41,7 @@ Espaço de busca sugerido:
 
 Executar **25 configurações no Random Search** e **25 trials no Optuna/TPE**. Registrar os melhores parâmetros, os resultados dos trials, a evolução do TPE e sua importância estimada dos parâmetros. Interpretar essa importância como indicativa, dado o orçamento curto.
 
-## 6. Fazer as análises de sensibilidade
+## 6. Fazer as análises de sensibilidade ✅
 
 Cada integrante escolhe um hiperparâmetro diferente. Variar pelo menos cinco valores, mantendo os demais na melhor configuração encontrada. Avaliar cada valor nos mesmos folds, registrar F1 macro e accuracy, fazer um gráfico e explicar o efeito observado.
 
