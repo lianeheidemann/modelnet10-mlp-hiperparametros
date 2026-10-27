@@ -223,7 +223,9 @@ Tabelas completas: `output/resultado_final_teste.csv` e `output/relatorio_por_cl
 - **Overfitting:** o F1 macro no treino (0,96 a 0,97) fica cerca de 0,08 acima da validação, e o teste (0,853) fica abaixo da validação cruzada (0,887). Não há sinal de underfitting.
 - **Limitações:** grade 8×8×8 grossa, orçamento curto (25 trials, 3 folds, uma seed), sensibilidade só do `alpha` e seleção da melhor entre 50 configurações na validação.
 
-A síntese completa está no notebook (Etapa 8). O roteiro do resumo de 12 minutos está em [doc/roteiro-resumo.md](doc/roteiro-resumo.md).
+> A síntese completa está no notebook (Etapa 8). Documentos de apoio:
+> - [Planejamento inicial](doc/planejamento-inicial.md)
+> - [Passo a passo da implementação](doc/passo-a-passo.md)
 
 ## Licença
 
