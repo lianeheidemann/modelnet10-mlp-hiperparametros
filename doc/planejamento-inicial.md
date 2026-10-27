@@ -38,4 +38,4 @@ A métrica principal será **F1 macro**; accuracy será complementar. Registrar 
 
 ## Entregas
 
-- Notebook com decisões e análises em Markdown, resultados e nota sobre uso de IA, se aplicável.
+- Notebook com decisões e análises em Markdown, resultados e nota sobre uso de IA.
