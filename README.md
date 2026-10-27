@@ -36,7 +36,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 | Etapa | Descrição | Status |
 | --- | --- | --- |
-| 1 | Validar o dataset (revisão externa) | ✅ Feita (dataset aprovado) |
+| 1 | Validar o dataset (revisão externa) | ✅ Feita |
 | 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | ✅ Feita |
 | 2 | Carregar e conferir os dados | ✅ Feita |
 | 3 | Preparar a entrada da MLP (grade 8×8×8) | ✅ Feita |
