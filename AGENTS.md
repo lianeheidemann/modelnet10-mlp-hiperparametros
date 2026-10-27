@@ -15,7 +15,7 @@ plt.show()
 
 - Nome do arquivo: prefixo numérico em ordem de aparição no notebook, minúsculas, sem acentos, separado por `_`, extensão `.png`.
 - Nunca salvar imagens fora de `output/`. Tabelas de resultados (CSV) também vão para `output/`.
-- Toda imagem de `output/` deve aparecer no `README.md`, na seção da etapa correspondente, com `<img src="output/..." alt="..." width="...">`.
+- Toda imagem de `output/` deve aparecer no `README.md`, na seção da etapa correspondente, com `<img src="output/..." alt="..." width="...">`. Exceção pedida pelo usuário: `02_exemplo_por_classe.png` continua sendo gerada pelo notebook, mas não aparece no README.
 - **Toda imagem do `README.md` deve ter legenda**: uma linha em itálico logo abaixo, no formato `*Figura N: o que a imagem mostra.*`, com numeração sequencial. Quando o gráfico tiver elementos que exigem explicação (pontos, linhas, cores), descrevê-los na legenda.
 - **Sempre que o notebook for executado e uma imagem mudar, atualizar o `README.md` na mesma tarefa**, sem esperar pedido:
   - conferir se cada imagem de `output/` está no README e remover do README as que não existem mais;

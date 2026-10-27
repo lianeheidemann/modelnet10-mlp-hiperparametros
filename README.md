@@ -50,7 +50,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 - Conferência de dimensões, rótulos, valores ausentes (NaN/inf) e faixa das coordenadas. Nenhum valor inválido foi encontrado.
 - Distribuição por classe: o treino é desbalanceado (de 106 a 889 objetos por classe) e o teste é mais uniforme (cerca de 100 por classe). Isso justifica validação estratificada e **F1 macro**.
 - Os arquivos trazem só os ids das classes. Os nomes usados no notebook seguem a ordem alfabética padrão do ModelNet10 e foram conferidos visualmente.
-- Gráficos: barras de objetos por classe e um exemplo 3D de cada classe.
+- Gráficos: barras de objetos por classe e o mesmo objeto em três vistas (frontal, lateral e topo).
 - O conjunto de teste é apenas inspecionado, nunca usado em decisões.
 
 **Objetos por classe**
@@ -59,25 +59,19 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 *Figura 1: número de objetos por classe nos conjuntos de treino e teste.*
 
-**Um exemplo de cada classe**
-
-<img src="output/02_exemplo_por_classe.png" alt="Exemplo de cada classe" width="100%">
-
-*Figura 2: primeiro objeto de treino de cada classe, colorido pela altura (eixo Z).*
-
 **O mesmo objeto em três vistas (frontal, lateral e topo)**
 
 <img src="output/02_1_vista_frontal.png" alt="Vista frontal" width="100%">
 
-*Figura 3: vista frontal (olhando ao longo do eixo Y) dos mesmos objetos.*
+*Figura 2: vista frontal (olhando ao longo do eixo Y) dos mesmos objetos.*
 
 <img src="output/02_2_vista_lateral.png" alt="Vista lateral" width="100%">
 
-*Figura 4: vista lateral (olhando ao longo do eixo X) dos mesmos objetos.*
+*Figura 3: vista lateral (olhando ao longo do eixo X) dos mesmos objetos.*
 
 <img src="output/02_3_vista_topo.png" alt="Vista de topo" width="100%">
 
-*Figura 5: vista de topo (olhando ao longo do eixo Z) dos mesmos objetos.*
+*Figura 4: vista de topo (olhando ao longo do eixo Z) dos mesmos objetos.*
 
 ### Etapa 3: grade de ocupação 8×8×8
 
@@ -91,7 +85,7 @@ A transformação é determinística e usa só os pontos de cada objeto, então 
 
 <img src="output/03_grade_ocupacao.png" alt="Grade de ocupação 8x8x8" width="100%">
 
-*Figura 6: um objeto de cada classe como grade de ocupação 8×8×8; cada cubo preenchido é uma célula com algum ponto.*
+*Figura 5: um objeto de cada classe como grade de ocupação 8×8×8; cada cubo preenchido é uma célula com algum ponto.*
 
 Limitação: a normalização por objeto descarta o tamanho absoluto, e a grade grossa pode misturar detalhes finos.
 
@@ -152,11 +146,11 @@ A melhor configuração geral, usada nas próximas etapas, é a do Random Search
 
 <img src="output/04_evolucao_buscas.png" alt="Evolução das buscas" width="100%">
 
-*Figura 7: evolução das buscas. Cada ponto é o F1 macro médio (3 folds) de um trial, em laranja no Random Search e em azul no TPE; as linhas em degrau mostram o melhor valor acumulado e a linha tracejada é o baseline.*
+*Figura 6: evolução das buscas. Cada ponto é o F1 macro médio (3 folds) de um trial, em laranja no Random Search e em azul no TPE; as linhas em degrau mostram o melhor valor acumulado e a linha tracejada é o baseline.*
 
 <img src="output/05_importancia_hiperparametros.png" alt="Importância dos hiperparâmetros" width="100%">
 
-*Figura 8: importância relativa de cada hiperparâmetro estimada pelo Optuna a partir dos 25 trials do TPE (soma 1; apenas indicativa).*
+*Figura 7: importância relativa de cada hiperparâmetro estimada pelo Optuna a partir dos 25 trials do TPE (soma 1; apenas indicativa).*
 
 Tabelas completas dos trials: `output/random_search_trials.csv`, `output/tpe_trials.csv` e `output/comparacao_baseline_buscas.csv`.
 
@@ -180,6 +174,6 @@ Variação de **um** hiperparâmetro, o `alpha` (regularização L2), com 7 valo
 
 <img src="output/06_sensibilidade_alpha.png" alt="Sensibilidade ao alpha" width="100%">
 
-*Figura 9: F1 macro e accuracy de validação (linhas azul e verde) e F1 macro no treino (tracejada cinza) para cada valor de `alpha`, em escala logarítmica; a linha vertical vermelha pontilhada marca o `alpha` da melhor configuração das buscas.*
+*Figura 8: F1 macro e accuracy de validação (linhas azul e verde) e F1 macro no treino (tracejada cinza) para cada valor de `alpha`, em escala logarítmica; a linha vertical vermelha pontilhada marca o `alpha` da melhor configuração das buscas.*
 
 Tabela completa em `output/sensibilidade_alpha.csv`.
