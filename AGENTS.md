@@ -26,7 +26,7 @@ plt.show()
 
 ## Notebook
 
-- Títulos: `## Etapa N: ...` e subseções `### N.k ...`, com a mesma numeração do guia `doc/step-by-step.md`.
+- Títulos: `## Etapa N: ...` e subseções `### N.k ...`, com a mesma numeração do guia `doc/passo-a-passo.md`.
 - Comentários no código: em português, começando com maiúscula, sem ponto final, sempre na linha acima do código (nunca ao lado) e explicando o porquê.
 - Funções com docstring de uma linha.
 - Ao terminar uma etapa, executar o notebook inteiro e conferir que não há erros.

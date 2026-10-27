@@ -1,6 +1,6 @@
-# Roteiro da apresentação (até 12 minutos)
+# Roteiro do resumo (até 12 minutos)
 
-Centrada no problema e nos resultados. As figuras estão em `output/` e os números no [README](../README.md).
+Centrado no problema e nos resultados. As figuras estão em `output/` e os números no [README](../README.md).
 
 | Tempo | Slide | Conteúdo | Figura |
 | --- | --- | --- | --- |
@@ -13,7 +13,7 @@ Centrada no problema e nos resultados. As figuras estão em `output/` e os núme
 | 1 min | 7. Importância | Taxa de aprendizado, lote e camadas pesam mais; `alpha` e ativação, pouco | `05_importancia_hiperparametros.png` |
 | 1 min | 8. Sensibilidade | `alpha` de 1e-5 a 1e-2: F1 macro entre 0,883 e 0,888, dentro do ruído | `06_sensibilidade_alpha.png` |
 | 1,5 min | 9. Teste final | F1 macro 0,853 e accuracy 0,857; erros entre mesas, cômodas e mesas de cabeceira | `07_matriz_confusao.png` |
-| 1 min | 10. Conclusões | Ganho pequeno do ajuste, sinais de overfitting, grade grossa; limitações e declaração de uso de IA | n/a |
+| 1 min | 10. Conclusões | Ganho pequeno do ajuste, sinais de overfitting, grade grossa; limitações e nota sobre uso de IA | n/a |
 
 Total: 12 minutos.
 

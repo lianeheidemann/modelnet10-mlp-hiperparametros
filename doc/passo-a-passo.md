@@ -1,10 +1,10 @@
 # Guia de implementação passo a passo
 
-Este roteiro mantém o ModelNet10 do repositório e cobre os requisitos experimentais da lauda. **A professora deve aprovar o dataset antes de começar o pré-processamento.**
+Este roteiro mantém o ModelNet10 do repositório e cobre os requisitos experimentais definidos para a análise. **O dataset deve ser aprovado antes de começar o pré-processamento (aprovado).**
 
-## 1. Validar o dataset
+## 1. Validar o dataset ✅
 
-Apresentar nome e link do ModelNet10, objetivo de classificação, número de instâncias, representação dos dados, classes e distribuição. Aguardar a validação da professora, pois a lauda restringe datasets excessivamente documentados.
+Apresentar nome e link do ModelNet10, objetivo de classificação, número de instâncias, representação dos dados, classes e distribuição. Aguardar a validação, pois os requisitos restringem datasets excessivamente documentados.
 
 ## 2. Carregar e conferir os dados ✅
 
@@ -43,19 +43,19 @@ Executar **25 configurações no Random Search** e **25 trials no Optuna/TPE**. 
 
 ## 6. Fazer as análises de sensibilidade ✅
 
-Cada integrante escolhe um hiperparâmetro diferente. Variar pelo menos cinco valores, mantendo os demais na melhor configuração encontrada. Avaliar cada valor nos mesmos folds, registrar F1 macro e accuracy, fazer um gráfico e explicar o efeito observado.
+Cada análise varia um hiperparâmetro diferente. Variar pelo menos cinco valores, mantendo os demais na melhor configuração encontrada. Avaliar cada valor nos mesmos folds, registrar F1 macro e accuracy, fazer um gráfico e explicar o efeito observado.
 
 ## 7. Treinar e avaliar o modelo final ✅
 
 Escolher a melhor configuração entre as buscas, treinar com todo o conjunto de treino e avaliar **uma única vez** no teste reservado. Apresentar F1 macro, accuracy, relatório por classe e matriz de confusão.
 
-## 8. Interpretar e apresentar ✅
+## 8. Interpretar e resumir ✅
 
-Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook os nomes dos integrantes, as decisões e a declaração de uso de IA, se aplicável. Preparar apresentação de até 12 minutos, centrada no problema e nos resultados.
+Discutir baseline versus modelos ajustados, Random Search versus TPE, tempo de busca, sensibilidade dos hiperparâmetros e sinais de overfitting ou underfitting. Incluir no notebook autoria, decisões e a nota sobre uso de IA, se aplicável. Preparar um resumo de até 12 minutos, centrado no problema e nos resultados.
 
 ## Checklist de controle
 
-- [ ] Dataset validado pela professora antes do pré-processamento.
+- [x] Dataset validado antes do pré-processamento.
 - [x] Teste mantido fora das buscas e da validação cruzada.
 - [x] Baseline, Random Search e TPE avaliados nos mesmos folds.
 - [x] 25 configurações em cada busca e mesmo espaço de busca.

@@ -1,16 +1,18 @@
-# 3d-mnist-mlp-optimization-v2
+# modelnet10-mlp-hiperparametros
 
 <img src="https://img.shields.io/badge/Python-3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" height="20"> <img src="https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter" height="20"> <img src="https://img.shields.io/badge/scikit--learn-1.9.1-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn" height="20"> <img src="https://img.shields.io/badge/Optuna-5.0.0-2E6CB8?style=for-the-badge&logo=optuna&logoColor=white" alt="Optuna" height="20"> <img src="https://img.shields.io/badge/NumPy-2.4.6-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" height="20"><br><img src="https://img.shields.io/badge/pandas-3.0.5-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" height="20"> <img src="https://img.shields.io/badge/Matplotlib-3.11.1-11557C?style=for-the-badge&logo=plotly&logoColor=white" alt="Matplotlib" height="20"> <img src="https://img.shields.io/badge/SciPy-1.17.1-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy" height="20"> <img src="https://img.shields.io/badge/HDF5-h5py%203.16.0-0B6FA4?style=for-the-badge&logo=hdf5&logoColor=white" alt="HDF5" height="20">
 
 Classificação de objetos 3D do **ModelNet10** com uma MLP (`scikit-learn`) e avaliação do efeito do ajuste de hiperparâmetros (Random Search e TPE/Optuna).
 
-Roteiro completo: [doc/step-by-step.md](doc/step-by-step.md). Plano inicial: [doc/planejamento-inicial.md](doc/planejamento-inicial.md).
+Roteiro completo: [doc/passo-a-passo.md](doc/passo-a-passo.md). Plano inicial: [doc/planejamento-inicial.md](doc/planejamento-inicial.md).
 
 ## Como executar
 
 Python **3.11.9** (ver `.python-version`).
 
 ```bash
+git clone https://github.com/lianeheidemann/modelnet10-mlp-hiperparametros.git
+cd modelnet10-mlp-hiperparametros
 pip install -r requirements.txt
 jupyter notebook notebooks/mlp_modelnet10.ipynb
 ```
@@ -34,7 +36,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 
 | Etapa | Descrição | Status |
 | --- | --- | --- |
-| 1 | Validar o dataset com a professora | Pendente (não é código) |
+| 1 | Validar o dataset (revisão externa) | Feita (dataset aprovado) |
 | 0 | Ambiente e configuração (versões, seed 42, caminhos, nomes das classes) | Feita |
 | 2 | Carregar e conferir os dados | Feita |
 | 3 | Preparar a entrada da MLP (grade 8×8×8) | Feita |
@@ -42,7 +44,7 @@ As etapas seguem a numeração do guia. O notebook usa a mesma numeração nos t
 | 5 | Random Search (25) e TPE com Optuna (25) | Feita |
 | 6 | Análises de sensibilidade (`alpha`) | Feita |
 | 7 | Modelo final e avaliação no teste | Feita |
-| 8 | Interpretação e apresentação | Feita |
+| 8 | Interpretação e resumo | Feita |
 
 ### Etapa 2: carregar e conferir os dados
 
@@ -221,4 +223,8 @@ Tabelas completas: `output/resultado_final_teste.csv` e `output/relatorio_por_cl
 - **Overfitting:** o F1 macro no treino (0,96 a 0,97) fica cerca de 0,08 acima da validação, e o teste (0,853) fica abaixo da validação cruzada (0,887). Não há sinal de underfitting.
 - **Limitações:** grade 8×8×8 grossa, orçamento curto (25 trials, 3 folds, uma seed), sensibilidade só do `alpha` e seleção da melhor entre 50 configurações na validação.
 
-A síntese completa está no notebook (Etapa 8). O roteiro da apresentação de 12 minutos está em [doc/apresentacao.md](doc/apresentacao.md).
+A síntese completa está no notebook (Etapa 8). O roteiro do resumo de 12 minutos está em [doc/roteiro-resumo.md](doc/roteiro-resumo.md).
+
+## Licença
+
+O código e a documentação deste repositório usam a [licença MIT](LICENSE). O dataset ModelNet10 em `dataset/` tem licença e termos próprios, definidos pelos autores e pela fonte de onde foi obtido (veja [doc/referencias.md](doc/referencias.md)), e não está coberto pela licença MIT deste repositório.
